@@ -1,0 +1,6 @@
+name = "non-friction-website"
+compatibility_date = "2026-08-25"
+workers_dev = true
+
+[assets]
+directory = "./"
