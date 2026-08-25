@@ -21,6 +21,7 @@
   --amber:#E0A03C;
   --amber-pale:#EFC98A;
   --magenta:#DB2777;
+  --magenta-light:#F0509B;
   --slate:#64748B;
   --slate-light:#94A3B8;
   --line:rgba(23,35,59,.12);
@@ -168,30 +169,73 @@ section{padding-block:var(--gap-section)}
 .btn-dark:hover{background:var(--navy-soft);transform:translateY(-2px)}
 
 /* four words strip */
+.hero-statement{
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(1.32rem,2.7vw,1.95rem);line-height:1.45;
+  letter-spacing:-.012em;color:var(--slate-light);max-width:34ch;
+}
+.hero-statement b{font-weight:400;color:var(--magenta-light)}
+.hero-statement i{font-style:normal;color:var(--bone)}
 .hero-line{
   font-family:var(--display);font-weight:300;
   font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.3;letter-spacing:-.015em;
   color:var(--bone);margin-top:2.4rem;padding-top:1.8rem;max-width:24ch;
   border-top:2px solid var(--amber);
 }
-.fourwords-label{
-  font-family:var(--mono);font-size:.7rem;letter-spacing:.16em;
-  text-transform:uppercase;color:var(--slate-light);
-  margin-top:3.6rem;margin-bottom:-1.4rem;
+/* hero byline carousel — white reel panel */
+.carousel{
+  margin-top:3.6rem;background:#fff;border-radius:4px;
+  padding:2.5rem clamp(1.3rem,3.5vw,3rem) 1.5rem;
+  box-shadow:0 20px 46px rgba(0,0,0,.26);
 }
-.fourwords{
-  display:flex;flex-wrap:wrap;gap:0;margin-top:3.4rem;
-  border-top:1px solid var(--line-dark);
+.car-stage{position:relative;min-height:7.2rem;perspective:1000px}
+.car-slide{
+  position:absolute;inset:0;margin:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:.7rem;text-align:center;pointer-events:none;
+  font-family:var(--display);font-weight:300;
+  font-size:clamp(1rem,2.3vw,1.62rem);line-height:1.4;
+  letter-spacing:-.012em;color:var(--navy);
+  transform-origin:center center;backface-visibility:hidden;
+  opacity:0;transform:translateY(38%) rotateX(-92deg);
+  transition:transform .68s cubic-bezier(.22,.9,.28,1.06),opacity .34s ease;
 }
-.fourwords span{
-  flex:1 1 140px;padding:1.15rem 0 0;font-family:var(--display);
-  font-size:clamp(1.05rem,2.1vw,1.5rem);color:var(--bone);font-weight:300;
-  border-top:2px solid transparent;margin-top:-1px;
+.car-slide.is-active{opacity:1;transform:translateY(0) rotateX(0)}
+.car-slide.is-out{opacity:0;transform:translateY(-38%) rotateX(92deg)}
+.car-slide b{font-weight:500;color:var(--magenta)}
+.car-body{display:block}
+.car-nw{white-space:nowrap}
+.car-slide u{
+  text-decoration:underline;text-decoration-color:var(--amber);
+  text-decoration-thickness:2px;text-underline-offset:5px;
 }
-.fourwords span:nth-child(1){border-top-color:var(--bone)}
-.fourwords span:nth-child(2){border-top-color:var(--bone-warm)}
-.fourwords span:nth-child(3){border-top-color:var(--amber-pale)}
-.fourwords span:nth-child(4){border-top-color:var(--amber)}
+.car-n{
+  font-family:var(--mono);font-size:.95rem;font-weight:500;letter-spacing:.16em;
+  color:var(--slate-light);
+}
+.car-n-goal{color:var(--amber);font-size:1.2rem;letter-spacing:0}
+.car-dots{display:flex;justify-content:center;gap:.55rem;margin-top:.8rem}
+.car-dot{background:none;border:none;padding:.7rem 0 0;cursor:pointer;line-height:0}
+.car-dot span{
+  display:block;position:relative;width:30px;height:3px;
+  background:rgba(23,35,59,.16);overflow:hidden;
+}
+.car-dot:hover span{background:rgba(23,35,59,.32)}
+.car-dot:focus-visible{outline:2px solid var(--magenta);outline-offset:4px}
+.car-dot span::after{
+  content:"";position:absolute;left:0;top:0;height:100%;width:0;background:var(--amber);
+}
+.car-dot.is-active span::after{animation:carFill var(--fill-dur,4s) linear forwards}
+.carousel.is-paused .car-dot.is-active span::after{animation-play-state:paused}
+@keyframes carFill{from{width:0}to{width:100%}}
+@media(max-width:640px){
+  .car-stage{min-height:10.5rem}
+  .carousel{padding-left:1rem;padding-right:1rem}
+}
+@media(max-width:400px){
+  .car-slide{font-size:.92rem}
+  .carousel{padding-left:.8rem;padding-right:.8rem}
+}
 
 /* ---------- symptoms ---------- */
 .symptoms{background:var(--bone)}
@@ -414,6 +458,8 @@ section{padding-block:var(--gap-section)}
 @media(prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important;scroll-behavior:auto !important}
   .chev-anim path,.chev-logo path{opacity:1;transform:none}
+  .car-slide.is-active{opacity:1;transform:none}
+  .car-dot.is-active span::after{width:100%}
 }
 </style>
 </head>
@@ -455,11 +501,11 @@ section{padding-block:var(--gap-section)}
       <path d="M124 8 L133 17 L124 26" stroke="#E0A03C" stroke-width="5"/>
     </svg>
 
-    <span class="eyebrow eyebrow-light">What changed</span>
+    <span class="eyebrow eyebrow-light">What has changed?</span>
 
-    <h1>Every business runs on friction.<br>Removing it used to be the expensive part.<br><em>Not any more.</em></h1>
+    <h1>Every business has friction.<br>Removing it used to be the expensive part.<br><em>Not any more.</em></h1>
 
-    <p class="lede">Documenting how a business actually works, connecting the systems, automating the repetitive parts — for thirty years that took a budget and a timeframe only large companies could justify. <strong>In the last two years the cost of doing it has collapsed.</strong> The barrier that put this out of reach for small and medium businesses has largely gone.</p>
+    <p class="hero-statement"><b>Nothing has changed.</b> Every business benefits from removing friction.<br><b>Everything has changed.</b> The <i>cost</i> of removing that friction has <i>collapsed</i>.</p>
 
     <p class="hero-line">We find the friction in your business — and remove it.</p>
 
@@ -468,12 +514,23 @@ section{padding-block:var(--gap-section)}
       <a class="btn btn-ghost" href="#whynow">Why it's different now</a>
     </div>
 
-    <p class="fourwords-label">Friction is anything that makes work</p>
-    <div class="fourwords">
-      <span>Harder.</span>
-      <span>Slower.</span>
-      <span>More expensive.</span>
-      <span>More error-prone.</span>
+    <div class="carousel" id="carousel" aria-label="Key ideas">
+      <div class="car-stage">
+        <p class="car-slide is-active"><span class="car-n car-n-goal">&#10095;</span><span class="car-body"><b>The Goal:</b> A frictionless business.</span></p>
+        <p class="car-slide"><span class="car-n">1 of 5</span><span class="car-body"><b>The Problem:</b> Low return on investment.<br>High return — but high cost.</span></p>
+        <p class="car-slide"><span class="car-n">2 of 5</span><span class="car-body"><b>The Inflection Point:</b> 2026.</span></p>
+        <p class="car-slide"><span class="car-n">3 of 5</span><span class="car-body"><b>What Changed:</b> <span class="car-nw">The <u>cost</u> of removing friction</span><br><span class="car-nw">just <u>collapsed</u>.</span></span></p>
+        <p class="car-slide"><span class="car-n">4 of 5</span><span class="car-body"><b>To Remain Competitive:</b> Every business needs a plan to systematically remove friction.</span></p>
+        <p class="car-slide"><span class="car-n">5 of 5</span><span class="car-body">Eating an elephant is done one mouthful at a time.<br>That elephant now looks more like a hamburger.</span></p>
+      </div>
+      <div class="car-dots" role="tablist" aria-label="Choose a statement">
+        <button class="car-dot is-active" data-i="0" role="tab" aria-selected="true" aria-label="The goal"><span></span></button>
+        <button class="car-dot" data-i="1" role="tab" aria-selected="false" aria-label="Point 1 of 5"><span></span></button>
+        <button class="car-dot" data-i="2" role="tab" aria-selected="false" aria-label="Point 2 of 5"><span></span></button>
+        <button class="car-dot" data-i="3" role="tab" aria-selected="false" aria-label="Point 3 of 5"><span></span></button>
+        <button class="car-dot" data-i="4" role="tab" aria-selected="false" aria-label="Point 4 of 5"><span></span></button>
+        <button class="car-dot" data-i="5" role="tab" aria-selected="false" aria-label="Point 5 of 5"><span></span></button>
+      </div>
     </div>
   </div>
 </header>
@@ -824,6 +881,65 @@ section{padding-block:var(--gap-section)}
 </footer>
 
 <script>
+/* ---- hero byline carousel ---- */
+(function(){
+  var car = document.getElementById('carousel');
+  if(!car) return;
+  var slides = car.querySelectorAll('.car-slide');
+  var dots = car.querySelectorAll('.car-dot');
+  var ci = 0, timer = null;
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* dwell time scales with how much there is to read.
+     ~1.76s to register the slide, plus ~34ms per character. */
+  function dwell(i){
+    var chars = (slides[i].textContent || '').trim().length;
+    return Math.min(5600, Math.max(2400, 1760 + chars * 34));
+  }
+
+  function show(i){
+    if(i === ci && slides[i].classList.contains('is-active')) return;
+    var prev = ci;
+    ci = i;
+    dots[i].style.setProperty('--fill-dur', dwell(i) + 'ms');
+    slides.forEach(function(s,n){
+      s.classList.remove('is-out');
+      s.classList.toggle('is-active', n === i);
+      s.setAttribute('aria-hidden', n === i ? 'false' : 'true');
+    });
+    if(prev !== i && !reduce){
+      var old = slides[prev];
+      old.classList.add('is-out');
+      setTimeout(function(){ old.classList.remove('is-out'); }, 700);
+    }
+    dots.forEach(function(d,n){
+      d.classList.toggle('is-active', n === i);
+      d.setAttribute('aria-selected', n === i ? 'true' : 'false');
+    });
+  }
+  function next(){ show((ci + 1) % slides.length); }
+  function stop(){ if(timer){ clearTimeout(timer); timer = null; } }
+  function start(){
+    if(reduce) return;
+    stop();
+    timer = setTimeout(function(){ next(); start(); }, dwell(ci));
+  }
+
+  dots.forEach(function(d){
+    d.addEventListener('click', function(){ show(Number(d.dataset.i)); start(); });
+  });
+  ['mouseenter','focusin'].forEach(function(ev){
+    car.addEventListener(ev, function(){ stop(); car.classList.add('is-paused'); });
+  });
+  ['mouseleave','focusout'].forEach(function(ev){
+    car.addEventListener(ev, function(){ car.classList.remove('is-paused'); start(); });
+  });
+
+  dots[0].style.setProperty('--fill-dur', dwell(0) + 'ms');
+  show(0);
+  start();
+})();
+
 /* ---- the chain ---- */
 var STAGES = [
   ["Lead → Quote",
