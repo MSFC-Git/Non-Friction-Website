@@ -6,8 +6,24 @@
 <title>Non-Friction Consulting — We find the friction in your business, and remove it.</title>
 <meta name="description" content="Removing friction from a business used to be slow and expensive. That has changed. Non-Friction Consulting helps small and medium businesses in New Zealand and Australia remove the work that shouldn't exist — through process, systems, integration, automation and AI.">
 <meta property="og:title" content="Non-Friction Consulting">
-<meta property="og:description" content="Every business runs on friction. Removing it used to be the expensive part. Not any more.">
+<meta property="og:description" content="Every business has friction. Removing it used to be the expensive part. Not any more.">
 <meta property="og:type" content="website">
+<meta property="og:site_name" content="Non-Friction Consulting">
+<meta property="og:locale" content="en_NZ">
+<!-- UPDATE BOTH URLS BELOW WHEN THE REAL DOMAIN GOES LIVE -->
+<meta property="og:url" content="https://non-friction-website.mark-143.workers.dev/">
+<meta property="og:image" content="https://non-friction-website.mark-143.workers.dev/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Non-Friction Consulting — we find the friction in your business and remove it.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Non-Friction Consulting">
+<meta name="twitter:description" content="Every business has friction. Removing it used to be the expensive part. Not any more.">
+<meta name="theme-color" content="#17233B">
+
+<!-- favicon: the chevron mark, drawn inline so there is no separate file to manage -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2317233B'/%3E%3Cg fill='none' stroke-width='3.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M8 11 L13 16 L8 21' stroke='%23F7F6F2'/%3E%3Cpath d='M15 11 L20 16 L15 21' stroke='%23EFC98A'/%3E%3Cpath d='M22 11 L27 16 L22 21' stroke='%23E0A03C'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="og-image.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -461,6 +477,110 @@ section{padding-block:var(--gap-section)}
   .car-slide.is-active{opacity:1;transform:none}
   .car-dot.is-active span::after{width:100%}
 }
+
+/* ============ FRICTION WHEEL (statement carousel) ============ */
+.fw{background:var(--navy);color:var(--bone);position:relative;overflow:hidden;
+    padding-block:clamp(3.25rem,6.5vw,5rem)}
+.fw::before,.fw::after{content:"";position:absolute;top:0;bottom:0;width:15%;z-index:4;pointer-events:none}
+.fw::before{left:0;background:linear-gradient(90deg,var(--navy) 14%,rgba(23,35,59,0))}
+.fw::after{right:0;background:linear-gradient(270deg,var(--navy) 14%,rgba(23,35,59,0))}
+.fw-eyebrow{position:relative;z-index:5;text-align:center;margin:0 0 2.2rem;
+    font-family:var(--body);font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;
+    color:var(--amber);font-weight:500}
+.fw-stage{position:relative;z-index:1;height:320px;perspective:1500px;perspective-origin:50% 46%}
+.fw-stage:focus-visible{outline:2px solid var(--amber);outline-offset:6px;border-radius:4px}
+.fw-wheel{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
+    touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
+.fw-wheel.is-drag{cursor:grabbing}
+.fw-card{position:absolute;top:50%;left:50%;width:360px;height:286px;margin:-143px 0 0 -180px;
+    background:var(--navy-soft);border:1px solid var(--line-dark);border-radius:4px;
+    padding:30px 32px 26px;display:flex;flex-direction:column;backface-visibility:hidden;
+    box-shadow:0 22px 55px -28px rgba(0,0,0,.9)}
+.fw-rule{height:2px;width:42px;background:var(--amber);flex:0 0 auto;margin-bottom:16px;transform-origin:left center}
+.fw-theme{font-family:var(--body);font-size:.6rem;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--slate-light);font-weight:500;margin:0 0 auto}
+.fw-q{font-family:var(--display);font-weight:300;color:var(--bone);margin:16px 0 0;
+    line-height:1.3;letter-spacing:-.01em;text-wrap:pretty}
+.fw-q.l{font-size:1.72rem;line-height:1.22}
+.fw-q.m{font-size:1.44rem}
+.fw-q.s{font-size:1.2rem;line-height:1.36}
+.fw-q.xs{font-size:1.02rem;line-height:1.44}
+.fw-chev{margin-top:16px;height:9px;flex:0 0 auto}
+.fw-controls{position:relative;z-index:5;display:flex;justify-content:center;gap:10px;margin-top:1.8rem}
+.fw-btn{appearance:none;background:transparent;border:1px solid var(--line-dark);color:var(--bone);
+    width:38px;height:38px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+    transition:border-color .2s ease,color .2s ease}
+.fw-btn:hover{border-color:var(--amber);color:var(--amber)}
+.fw-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.fw-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.fw-hint{position:relative;z-index:5;text-align:center;margin:1.1rem 0 0;font-family:var(--body);
+    font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(148,163,184,.7)}
+.fw-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* centred statements */
+.fw-card{align-items:center;text-align:center}
+.fw-rule{margin-left:auto;margin-right:auto;transform-origin:center}
+.fw-theme,.fw-q{width:100%}
+.fw-theme{margin:0}
+.fw-q{margin-top:auto;margin-bottom:auto}
+
+/* Hero moved to a light ground so the navy wheel band below it reads
+   as a separate block rather than one continuous slab of navy. */
+.hero{background:var(--bone);color:var(--navy)}
+.hero::after{opacity:.5}
+.hero h1{color:var(--navy)}
+.hero .eyebrow-light{color:#A5701A}
+.hero-statement{color:var(--slate)}
+.hero-statement i{color:var(--navy)}
+.hero-line{color:var(--navy)}
+.hero-statement u{text-decoration:underline;text-decoration-color:var(--amber);
+  text-decoration-thickness:2px;text-underline-offset:5px}
+.hero .btn-ghost{border-color:rgba(23,35,59,.3);color:var(--navy)}
+.hero .btn-ghost:hover{border-color:#A5701A;color:#A5701A}
+.hero-chev path:nth-of-type(1){stroke:#17233B}
+.hero-chev path:nth-of-type(2){stroke:#3A4560}
+.hero-chev path:nth-of-type(3){stroke:#8A7B52}
+.hero-chev path:nth-of-type(4){stroke:#C08F30}
+.hero-chev path:nth-of-type(5){stroke:#D49A39}
+.hero-chev path:nth-of-type(6){stroke:#E0A03C}
+
+@media(max-width:720px){
+  .fw-stage{height:286px}
+  .fw-card{width:274px;height:252px;margin:-126px 0 0 -137px;padding:24px 24px 20px}
+  .fw-q.l{font-size:1.4rem}.fw-q.m{font-size:1.22rem}.fw-q.s{font-size:1.06rem}.fw-q.xs{font-size:.94rem}
+  .fw::before,.fw::after{width:10%}
+}
+
+
+/* ============ THE WAY WE THINK (essay) ============ */
+.think{background:var(--bone-warm)}
+.think-body{max-width:34rem;margin-top:2.4rem}
+.think-body p{font-family:var(--body);font-size:1.02rem;line-height:1.75;color:var(--navy);margin:0 0 1.15rem}
+.think-body p.lead{font-family:var(--display);font-weight:300;font-size:clamp(1.2rem,2.2vw,1.5rem);
+  line-height:1.4;letter-spacing:-.012em;color:var(--navy);margin-bottom:1.6rem}
+.think-body h3{font-family:var(--body);font-size:.66rem;letter-spacing:.22em;text-transform:uppercase;
+  color:#A5701A;font-weight:600;margin:2.6rem 0 1.1rem}
+.think-body h3:first-child{margin-top:0}
+.think-body ul{margin:0 0 1.3rem;padding-left:1.1rem}
+.think-body li{font-family:var(--body);font-size:1.02rem;line-height:1.7;color:var(--navy);margin-bottom:.5rem}
+.think-body b{font-weight:600}
+.think-body em{font-style:italic}
+.think-pull{border-left:2px solid var(--amber);padding-left:1.2rem;margin:1.9rem 0;
+  font-family:var(--display);font-weight:300;font-size:clamp(1.15rem,2.1vw,1.42rem);
+  line-height:1.35;letter-spacing:-.012em;color:var(--navy)}
+.think-src{margin-top:2.8rem;padding-top:1.4rem;border-top:1px solid var(--line)}
+.think-src h4{font-family:var(--body);font-size:.64rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--slate);font-weight:600;margin:0 0 .9rem}
+.think-src li{font-size:.87rem;line-height:1.6;color:var(--slate);margin-bottom:.6rem}
+.think-src a{color:var(--navy)}
+.think-toggle{
+  appearance:none;margin-top:1.4rem;background:transparent;border:1px solid rgba(23,35,59,.3);
+  color:var(--navy);font-family:var(--body);font-size:.92rem;font-weight:500;
+  padding:.8rem 1.6rem;border-radius:3px;cursor:pointer;
+  transition:border-color .18s,color .18s,background .18s}
+.think-toggle:hover{border-color:#A5701A;color:#A5701A}
+.think-toggle:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+
 </style>
 </head>
 <body>
@@ -480,6 +600,7 @@ section{padding-block:var(--gap-section)}
       <span class="brand-lockup"><span class="brand-name">Non-Friction</span><span class="brand-sub">Consulting</span></span>
     </a>
     <div class="nav-links">
+      <a href="#think">The Way We Think</a>
       <a href="#friction">Friction</a>
       <a href="#chain">Where it hides</a>
       <a href="#whynow">Why now</a>
@@ -505,7 +626,7 @@ section{padding-block:var(--gap-section)}
 
     <h1>Every business has friction.<br>Removing it used to be the expensive part.<br><em>Not any more.</em></h1>
 
-    <p class="hero-statement"><b>Nothing has changed.</b> Every business benefits from removing friction.<br><b>Everything has changed.</b> The <i>cost</i> of removing that friction has <i>collapsed</i>.</p>
+    <p class="hero-statement"><b>Nothing has changed.</b> Every business <i><u>still</u></i> benefits from removing friction.<br><b>Everything has changed.</b> The <i><u>cost</u></i> of removing that friction has <i><u>collapsed</u></i>.</p>
 
     <p class="hero-line">We find the friction in your business — and remove it.</p>
 
@@ -514,26 +635,154 @@ section{padding-block:var(--gap-section)}
       <a class="btn btn-ghost" href="#whynow">Why it's different now</a>
     </div>
 
-    <div class="carousel" id="carousel" aria-label="Key ideas">
-      <div class="car-stage">
-        <p class="car-slide is-active"><span class="car-n car-n-goal">&#10095;</span><span class="car-body"><b>The Goal:</b> A frictionless business.</span></p>
-        <p class="car-slide"><span class="car-n">1 of 5</span><span class="car-body"><b>The Problem:</b> Low return on investment.<br>High return — but high cost.</span></p>
-        <p class="car-slide"><span class="car-n">2 of 5</span><span class="car-body"><b>The Inflection Point:</b> 2026.</span></p>
-        <p class="car-slide"><span class="car-n">3 of 5</span><span class="car-body"><b>What Changed:</b> <span class="car-nw">The <u>cost</u> of removing friction</span><br><span class="car-nw">just <u>collapsed</u>.</span></span></p>
-        <p class="car-slide"><span class="car-n">4 of 5</span><span class="car-body"><b>To Remain Competitive:</b> Every business needs a plan to systematically remove friction.</span></p>
-        <p class="car-slide"><span class="car-n">5 of 5</span><span class="car-body">Eating an elephant is done one mouthful at a time.<br>That elephant now looks more like a hamburger.</span></p>
-      </div>
-      <div class="car-dots" role="tablist" aria-label="Choose a statement">
-        <button class="car-dot is-active" data-i="0" role="tab" aria-selected="true" aria-label="The goal"><span></span></button>
-        <button class="car-dot" data-i="1" role="tab" aria-selected="false" aria-label="Point 1 of 5"><span></span></button>
-        <button class="car-dot" data-i="2" role="tab" aria-selected="false" aria-label="Point 2 of 5"><span></span></button>
-        <button class="car-dot" data-i="3" role="tab" aria-selected="false" aria-label="Point 3 of 5"><span></span></button>
-        <button class="car-dot" data-i="4" role="tab" aria-selected="false" aria-label="Point 4 of 5"><span></span></button>
-        <button class="car-dot" data-i="5" role="tab" aria-selected="false" aria-label="Point 5 of 5"><span></span></button>
-      </div>
-    </div>
   </div>
 </header>
+
+<!-- ============ STATEMENT WHEEL ============ -->
+<section class="fw" aria-labelledby="fw-label">
+  <p class="fw-eyebrow" id="fw-label">Gradually, then suddenly</p>
+  <div class="fw-stage" id="fw-stage" tabindex="0" role="group" aria-describedby="fw-help" aria-label="Statement wheel">
+    <div class="fw-wheel" id="fw-wheel" aria-hidden="true"></div>
+    <span class="fw-sr" id="fw-help">Use the left and right arrow keys to step through the statements.</span>
+  </div>
+  <ul class="fw-sr" id="fw-list"></ul>
+  <div class="fw-controls">
+    <button class="fw-btn" id="fw-prev" type="button" aria-label="Previous statement"><svg viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg></button>
+    <button class="fw-btn" id="fw-toggle" type="button" aria-label="Pause the wheel" aria-pressed="false"><svg viewBox="0 0 24 24" id="fw-icon"><path d="M9 5v14M15 5v14"/></svg></button>
+    <button class="fw-btn" id="fw-next" type="button" aria-label="Next statement"><svg viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button>
+  </div>
+  <p class="fw-hint">Drag to spin &middot; Arrow keys to step</p>
+</section>
+
+
+<!-- ============ THE WAY WE THINK ============ -->
+<section class="think" id="think">
+  <div class="wrap">
+    <span class="eyebrow">The Way We Think</span>
+    <h2>The Non-Friction Business.</h2>
+    <div class="think-body" id="think-short">
+<p class="lead">In chapter thirteen of Ernest Hemingway's <em>The Sun Also Rises</em>, Bill asks Mike how he went bankrupt. &ldquo;Two ways,&rdquo; Mike says. &ldquo;Gradually and then suddenly.&rdquo;</p>
+<p>That line has been borrowed to describe everything from divorce to ageing to the movement of tectonic plates. It fits business better than any of them.</p>
+<p>Businesses accumulate friction. Gradually.</p>
+<ul>
+  <li>The quote that took four days to go out instead of one.</li>
+  <li>The variation nobody wrote down.</li>
+  <li>The timesheet entered a fortnight late.</li>
+  <li>The job that looked profitable right up until it wasn't.</li>
+  <li>The invoice that sat unsent for three weeks.</li>
+  <li>The report you meant to build and never did.</li>
+</ul>
+<p>Not one of those is fatal. Together, they bleed a business dry.</p>
+<p>Friction creates drag. Drag consumes energy that could have produced forward movement. In a business, that energy is your margin, your cash and your weekends.</p>
+<p>It never gets fixed because each instance looks too small to be worth today's time and money. And it never arrives as an invoice, so nobody adds it up.</p>
+<p class="think-pull">Gradually, then suddenly runs in both directions.</p>
+<p>The same compounding that quietly bleeds a business will just as quietly build one. That is the whole idea behind <em>kaizen</em> &mdash; &ldquo;change for the better&rdquo; &mdash; the Japanese manufacturing discipline of small, relentless improvement instead of the occasional heroic overhaul. Toyota built one of the world's great industrial businesses on it. It transfers to a ten-person business almost without modification.</p>
+<p>It needs four things: a vision, a strategy, a plan, and action steps that actually get done. Weeks, months and years. Not a long weekend.</p>
+<p>So why doesn't every small business already do this? Because until very recently, fixing friction often didn't pay. Removing friction properly meant custom work, and custom work meant a developer &mdash; slow, expensive, and needing to be specified by someone who understood both your business and the technology.</p>
+<p>That has changed. The cost of the underlying intelligence has collapsed, and more importantly, the specification can now be done by the person who understands the business rather than the person who only understands the technology.</p>
+<p>A friction point that cost $20,000 to fix and saved $4,000 a year was a five-year payback and an easy &ldquo;No&rdquo;. At $2,000 it's a six-month payback and an obvious &ldquo;Yes&rdquo;.</p>
+<p class="think-pull">Nothing about the friction changed. The price of removing it did.</p>
+<p>That is why 2026 is different.</p>
+
+    </div>
+    <div class="think-body" id="think-long" hidden>
+<h3>The bad news</h3>
+<p class="lead">In chapter thirteen of Ernest Hemingway's <em>The Sun Also Rises</em>, Bill asks Mike how he went bankrupt. &ldquo;Two ways,&rdquo; Mike says. &ldquo;Gradually and then suddenly.&rdquo;</p>
+<p>Gradually, then suddenly has since become shorthand for the way change, failure, growth and disruption actually happen in complex systems. It has been borrowed to describe everything from divorce to ageing to the movement of tectonic plates.</p>
+<p>Applied to business, it describes the way a company accumulates operational friction.</p>
+<ul>
+  <li>The quote that took four days to go out instead of one.</li>
+  <li>The variation nobody wrote down.</li>
+  <li>The timesheet entered a fortnight late.</li>
+  <li>The job that looked profitable right up until it wasn't.</li>
+  <li>The invoice that sat unsent for three weeks.</li>
+  <li>The report the owner meant to run but never had time to build.</li>
+</ul>
+<p>Not one of those cuts is fatal. Collectively, they bleed a business dry.</p>
+<p>In mechanical terms, friction creates drag. Drag consumes energy that could have produced forward momentum. In a business, that energy is your margin, your cash and your weekends &mdash; and ultimately the million dollars you could have sold the business for, but didn't, because you never removed the friction.</p>
+<p>Friction doesn't get fixed because each individual instance looks too small to justify the time, effort and cost of dealing with it. The return on investment looks poor next to whatever is on fire this morning.</p>
+<p class="think-pull">But all friction has a cost. It never appears on an invoice, so nobody adds it up.</p>
+<p>And so management tolerates it. Then tolerates it again. Then it becomes just how we do things here.</p>
+
+<h3>The good news</h3>
+<p>Gradually, then suddenly runs in both directions.</p>
+<p>We usually attach it to decay &mdash; entropy, depreciation, the slow slide. It applies just as well to growth, to success, and to the compounding of improvement.</p>
+<p>Albert Einstein probably never said that compound interest is the eighth wonder of the world. It doesn't matter. What matters is the idea underneath it: compounding is what turns gradual change into dramatic outcomes.</p>
+<p>The Japanese manufacturing world turned that idea into a method and called it <em>kaizen</em> &mdash; literally &ldquo;change for the better&rdquo;. Not a programme. A permanent cultural commitment to small, relentless, incremental improvement rather than occasional heroic overhauls.</p>
+<p>Toyota built one of the world's great industrial businesses on it. The good news is that it transfers to a ten-person business almost without modification.</p>
+<p>Kaizen requires four things.</p>
+<ul>
+  <li><b>A vision.</b> What does this business look like when it runs properly? Be specific. &ldquo;I know every job's margin the day it finishes&rdquo; is a vision. &ldquo;Be more efficient&rdquo; is a wish.</li>
+  <li><b>A strategy.</b> Which friction goes first, and why? Usually the friction that costs the most, or the friction hiding the information you need to make decisions.</li>
+  <li><b>A plan.</b> A sequenced list with dates against it. Not everything at once.</li>
+  <li><b>Action steps.</b> Small, specific, assigned, and actually done. Every week, not every quarter.</li>
+</ul>
+<p>The timeframe is weeks, months and years. Not a long weekend.</p>
+<p>This is not a project. It's a permanent change in philosophy, built on one idea: small improvements that compound and hold will beat a heroic overhaul that decays. Every single time.</p>
+
+<h3>Why nobody does it</h3>
+<p>None of this is new thinking. Continuous improvement has been well understood for forty years or more. So why don't more small businesses do it?</p>
+<p>Because until very recently, fixing friction often didn't pay.</p>
+<p>Removing friction usually meant custom work &mdash; off the shelf seldom fitted well. Integrating two systems that didn't talk to each other. Building the report nobody's software produced. Automating an approval. Restructuring how job data was captured in the first place.</p>
+<p>That was developer work. And developer work was slow, with endless alignment meetings. It was expensive. And it had to be specified by someone who understood <b>both</b> the business <b>and</b> the technology &mdash; a person who is genuinely hard to find.</p>
+<p>The return on investment (ROI) was real, but distant, and every bit of the risk sat with the owner.</p>
+<p>So it didn't get done. Owners weren't being short-sighted &mdash; they were just doing their sums correctly.</p>
+
+<h3>What has changed in 2026</h3>
+<p>Artificial intelligence (AI). Gradually, then suddenly. Sounds familiar.</p>
+<p>After a decade or more of promises, somewhere between 2025 and early 2026 we passed an inflection point that changed the return on investment equation. The cost of removing friction collapsed. Time, effort and expertise are no longer too expensive to justify.</p>
+<p>The clearest published measure comes from Stanford University's AI Index. Querying an AI model performing at the level of GPT-3.5 cost US$20.00 per million tokens in November 2022. By October 2024 it cost US$0.07. A more than 280-fold reduction, in roughly eighteen months.</p>
+<p>A million tokens is roughly 750,000 words &mdash; longer than <em>War and Peace</em>, or about eight ordinary novels. For seven cents.</p>
+<p>Put that reduction against something physical. A new Tesla Model 3 lists in New Zealand at NZ$63,900. Apply the same 280-fold drop and you would drive it away for NZ$228.</p>
+<p>That is not a discount. It is a different category of pricing.</p>
+<p>But the raw cost of intelligence is only the beginning. The bigger change is that work which used to require a developer &mdash; writing the integration, building the report, wiring one system into another &mdash; can now be specified in plain English and produced in hours instead of months.</p>
+<p>And this is the part that matters most.</p>
+<p class="think-pull">The specification can now be done by the person who understands the business, rather than the person who only understands the technology.</p>
+<p>The impossible-to-find translator is no longer the bottleneck. The technology person is still no better placed to understand your business than they ever were &mdash; they just aren't the gatekeeper any more.</p>
+<p>Building the thing no longer dominates the budget. Which flips the arithmetic entirely.</p>
+<p>A friction point that cost $20,000 to fix and saved $4,000 a year was a five-year payback and an easy &ldquo;No&rdquo;. At $2,000 it's a six-month payback and an obvious &ldquo;Yes&rdquo;.</p>
+<p>Nothing about the friction changed. The price of removing it did. That is why 2026 is different.</p>
+
+<h3>The solution</h3>
+<p>You cannot fix what you have stopped noticing. Which is why friction has to be <em>systematically</em> identified, not casually noticed.</p>
+<p>That means walking the whole path a job takes through your business &mdash; enquiry, quote, acceptance, scheduling, delivery, variation, invoice, payment, review &mdash; and asking at each step:</p>
+<ul>
+  <li>Where does information get typed twice?</li>
+  <li>Where does work sit and wait?</li>
+  <li>Where do we rely on somebody remembering?</li>
+  <li>Where do we not know the answer until it's too late to act on it?</li>
+</ul>
+<p>And a hundred other questions.</p>
+<p>Then you fix one. Verify a month later that it stayed fixed. Then do it again.</p>
+<p>That last part is not optional. Software bought without a vision, a strategy and a plan is just a new subscription. The return comes from the discipline, not the purchase.</p>
+
+<h3>The ultimate prize &mdash; a business worth selling</h3>
+<p>At first this is about avoiding failure. Failure can be an excellent teacher, but it's a long road back from bankruptcy and not everyone makes it.</p>
+<p>Then it's about surviving &mdash; earning enough to pay the bills and provide for your family. This is the business as a job.</p>
+<p>Beyond that comes growth: revenue, a capable team, systems and processes that hold. Then freedom. A business no longer entirely dependent on its founder.</p>
+<p>And at the highest level, the business becomes an asset in its own right. Valuable. Transferable. Able to operate without you. Generating wealth for its owners rather than wages for its founder.</p>
+<p>Which finally gives you the choice most owners never get: keep building it, sell it, or hand it on to the next generation.</p>
+
+<h3>The key takeaway</h3>
+<p>The businesses that treat friction removal as a standing discipline will pull away from the ones that don't. Not dramatically. Not this quarter.</p>
+<p>But a business improving a few percent every month, permanently, is a fundamentally different proposition in three years to one still running the processes it ran in 2019.</p>
+<p>That gap used to be hard to open, because the cost of improvement was high and the payback was long.</p>
+<p class="think-pull">That excuse is gone.</p>
+
+<div class="think-src">
+  <h4>Sources</h4>
+  <ul>
+    <li>Hemingway, Ernest. <em>The Sun Also Rises</em>, chapter 13 (1926).</li>
+    <li><a href="https://hai.stanford.edu/ai-index/2025-ai-index-report/research-and-development" target="_blank" rel="noopener">The 2025 AI Index Report</a>, Stanford Institute for Human-Centered Artificial Intelligence. &ldquo;The cost of querying an AI model that scores the equivalent of GPT-3.5 (64.8% accuracy) on MMLU dropped from $20 per million tokens in November 2022 to just $0.07 per million tokens by October 2024 (Gemini-1.5-Flash-8B) &mdash; a more than 280-fold reduction in approximately 18 months.&rdquo;</li>
+    <li>Tesla Model 3 Rear Wheel Drive list price, <a href="https://evdb.nz/v/tesla-model-3" target="_blank" rel="noopener">EVDB New Zealand</a>, NZ$63,900. New Zealand retail vehicle prices are advertised inclusive of GST and exclusive of on-road costs. NZ$63,900 &divide; 280 = NZ$228.</li>
+  </ul>
+</div>
+
+    </div>
+    <button class="think-toggle" id="think-toggle" type="button" aria-expanded="false" aria-controls="think-long">Read the full essay</button>
+  </div>
+</section>
+
 
 <!-- ============ SYMPTOMS ============ -->
 <section class="symptoms" id="friction">
@@ -1006,6 +1255,181 @@ function tally(){
 }
 boxes.forEach(function(b){ b.addEventListener('change', tally); });
 </script>
+
+<script>
+/* ---- Friction wheel: 43 statements on a large horizontal drum ---- */
+(function(){
+  "use strict";
+  var DATA = [["“How did you go bankrupt?” — “Two ways. Gradually and then suddenly.”", "Friction"], ["Friction never appears on an invoice. So nobody adds it up.", "Friction"], ["Friction creates drag. In a business, drag is your margin, your cash and your weekends, and your legacy.", "Friction"], ["Gradually, then suddenly runs in both directions.", "Compounding"], ["Compounding is what turns gradual change into dramatic outcomes.", "Compounding"], ["Kaizen — small, relentless incremental improvements that become culture.", "Compounding"], ["“I know every job’s margin the day it finishes” is a vision. “Be more efficient” is a wish.", "Compounding"], ["Until very recently, fixing friction often didn’t pay. Owners weren’t being short-sighted — they were just doing their sums correctly.", "The maths"], ["US$20.00 per million tokens in 2022. Seven cents by 2024. A 280-fold fall in eighteen months. And only getting cheaper all the time.", "The maths"], ["$20,000 to fix and $4,000 a year saved was a five-year payback and an easy “No”. At $2,000 it’s a six-month payoff and an obvious “Yes”.", "The maths"], ["Nothing about the friction changed. The price of removing it just did.", "The maths"], ["The specification can now be done by the person who understands the business — not the person who only understands the technology.", "The maths"], ["Software bought without a vision, a strategy and a plan is just a new subscription.", "Compounding"], ["You cannot fix what you have stopped noticing.", "Friction"], ["Friction is too expensive to fix. That excuse is gone.", "Friction"], ["Non-Friction — the difference between owning a job and building a valuable asset.", "The asset"], ["Profitable? Or a busy fool?", "The asset"], ["Repeatable rather than dependent?", "The asset"], ["Transferable rather than inseparable from its founder?", "The asset"], ["Work → income → profit → equity → enterprise value.", "The asset"], ["The ultimate prize is when the years of work you have put into the business remain embedded in the business after you stop working in it.", "The asset"], ["Don’t just build a business. Build something worth owning.", "The asset"], ["The ultimate measure of a business is what it’s worth without you.", "The asset"], ["Build a business that works for you, then build one that works without you.", "The asset"], ["A great business turns your effort into an asset.", "The asset"], ["The goal isn’t to own your job. It’s to own the business.", "The asset"], ["Income rewards the work you do. Equity rewards the business you build.", "The asset"], ["If the business stops when you stop, you haven’t built an asset.", "The asset"], ["Your greatest business achievement may be making yourself unnecessary.", "The asset"], ["The real payday is when someone else is willing to pay for what you’ve built.", "The asset"], ["Profit pays you today. Enterprise value pays you tomorrow.", "The asset"], ["A business is most valuable when its value is no longer dependent on its owner.", "The asset"], ["Turn years of effort into an asset that can be sold in a day.", "The asset"], ["The objective isn’t simply to extract value from the business, but to create value within it.", "The asset"], ["The ultimate return on your labour is an asset you can sell.", "The asset"], ["Every process you systemise makes the business less dependent on you.", "Compounding"], ["Every friction point you remove makes the business more valuable.", "Friction"], ["A business that depends on its owner has limited value. A business that runs without its owner has transferable value.", "The asset"], ["Remove the friction. Systemise the work. Build the asset.", "Compounding"], ["Build the business. Systemise the business. Then make yourself unnecessary.", "Compounding"], ["You build the value in your business gradually. The ‘suddenly’ happens when you decide to sell.", "Compounding"], ["The value from removing friction becomes visible suddenly when someone puts a price on the business.", "The asset"], ["The value of a business is the accumulated consequence of everything you did right when nobody was putting a value on it.", "The asset"]];
+
+  var CHEV='<svg class="fw-chev" viewBox="0 0 58 9" aria-hidden="true">'+
+   '<g fill="none" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">'+
+   '<path d="M2 1.6 5.8 4.5 2 7.4" stroke="#F7F6F2"/>'+
+   '<path d="M13 1.6 16.8 4.5 13 7.4" stroke="#EFEDE6"/>'+
+   '<path d="M24 1.6 27.8 4.5 24 7.4" stroke="#EFC98A"/>'+
+   '<path d="M35 1.6 38.8 4.5 35 7.4" stroke="#E0A03C"/>'+
+   '<path d="M46 1.6 49.8 4.5 46 7.4" stroke="#E0A03C"/></g></svg>';
+
+  var wheel=document.getElementById("fw-wheel");
+  if(!wheel) return;
+  var sect=document.querySelector(".fw"),
+      list=document.getElementById("fw-list"),
+      bPrev=document.getElementById("fw-prev"),
+      bNext=document.getElementById("fw-next"),
+      bTog=document.getElementById("fw-toggle"),
+      icon=document.getElementById("fw-icon");
+
+  var reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var data=DATA.slice();
+  for(var i=data.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1)),t=data[i];data[i]=data[j];data[j]=t;}
+
+  var N=data.length, STEP=360/N, RAD=Math.PI/180,
+      radius=0, cards=[], angle=0, velocity=0,
+      paused=false, userPaused=false, target=null, last=0,
+      dwellMode=false, dwellFor=0;
+
+  function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");}
+  function sizeClass(s){var n=s.length;return n<52?"l":n<90?"m":n<135?"s":"xs";}
+
+  var html="",sr="";
+  for(var k=0;k<N;k++){
+    html+='<article class="fw-card"><div class="fw-rule"></div><p class="fw-theme">'+esc(data[k][1])+
+          '</p><p class="fw-q '+sizeClass(data[k][0])+'">'+esc(data[k][0])+'</p>'+CHEV+'</article>';
+    sr+="<li>"+esc(data[k][0])+"</li>";
+  }
+  wheel.innerHTML=html; list.innerHTML=sr;
+  cards=[].slice.call(wheel.children);
+  for(var c=0;c<cards.length;c++){
+    cards[c]._rule=cards[c].querySelector(".fw-rule");
+    cards[c]._chev=cards[c].querySelector(".fw-chev");
+  }
+
+  function measure(){
+    var narrow=window.innerWidth<=720,
+        w=narrow?274:360, gap=narrow?30:48;
+    /* Narrow screens fit barely one card, so continuous drift would leave
+       statements half off-screen. There we step and dwell instead. */
+    if(narrow!==dwellMode){
+      dwellMode=narrow; dwellFor=0;
+      if(narrow){ target=Math.round(angle/STEP)*STEP; velocity=0; }
+    }
+    radius=(w+gap)*N/(2*Math.PI);
+    /* push the drum back so the front card lands on the screen plane */
+    wheel.style.transform="translateZ("+(-radius)+"px)";
+  }
+  function wrap(a){a=a%360;if(a>180)a-=360;if(a<-180)a+=360;return a;}
+
+  function render(){
+    for(var k=0;k<N;k++){
+      var th=wrap(k*STEP-angle), ab=Math.abs(th), el=cards[k];
+      if(ab>34){ if(el.style.visibility!=="hidden") el.style.visibility="hidden"; continue; }
+      el.style.visibility="visible";
+      var op=Math.max(1-ab/30,.05);
+      var bl=reduced?0:Math.min(ab/9,3.2);
+      el.style.transform="rotateY("+th+"deg) translateZ("+radius+"px)";
+      el.style.opacity=op.toFixed(3);
+      el.style.filter=bl>.05?"blur("+bl.toFixed(2)+"px)":"none";
+      el.style.zIndex=String(100-Math.round(ab));
+      var f=Math.max(1-ab/9,0);
+      el._rule.style.transform="scaleX("+(.25+.75*f).toFixed(3)+")";
+      el._rule.style.opacity=(.3+.7*f).toFixed(3);
+      el._chev.style.opacity=f.toFixed(3);
+    }
+  }
+
+  var DRIFT=1.4;
+  function frame(now){
+    var dt=last?Math.min((now-last)/1000,.05):0; last=now;
+    if(target!==null){
+      var d=target-angle;
+      if(Math.abs(d)<.02){angle=target;target=null;} else angle+=d*Math.min(dt*7,1);
+    } else if(Math.abs(velocity)>.02){
+      angle+=velocity*dt; velocity*=Math.pow(.06,dt);
+    } else {
+      velocity=0;
+      if(!paused&&!userPaused&&!reduced){
+        if(dwellMode){
+          dwellFor+=dt;
+          if(dwellFor>4.5){ dwellFor=0; step(1); }
+        } else angle+=DRIFT*dt;
+      }
+    }
+    if(angle>3600||angle<-3600) angle=wrap(angle);
+    render();
+    requestAnimationFrame(frame);
+  }
+  function step(dir){
+    var base=target===null?angle:target;
+    target=Math.round(base/STEP)*STEP+dir*STEP; velocity=0;
+  }
+
+  var drag=false,lx=0,lt=0;
+  wheel.addEventListener("pointerdown",function(e){
+    drag=true;target=null;velocity=0;lx=e.clientX;lt=performance.now();
+    wheel.classList.add("is-drag");
+    try{wheel.setPointerCapture(e.pointerId);}catch(err){}
+  });
+  wheel.addEventListener("pointermove",function(e){
+    if(!drag)return;
+    var now=performance.now(),dx=e.clientX-lx,dt=Math.max((now-lt)/1000,.001),
+        dth=-(dx/radius)/RAD;
+    angle+=dth;
+    velocity=Math.max(-900,Math.min(900,dth/dt));
+    lx=e.clientX;lt=now;
+  });
+  function end(e){
+    if(!drag)return; drag=false; wheel.classList.remove("is-drag");
+    try{wheel.releasePointerCapture(e.pointerId);}catch(err){}
+  }
+  wheel.addEventListener("pointerup",end);
+  wheel.addEventListener("pointercancel",end);
+
+  sect.addEventListener("pointerenter",function(){paused=true;});
+  sect.addEventListener("pointerleave",function(){paused=false;});
+  sect.addEventListener("focusin",function(){paused=true;});
+  sect.addEventListener("focusout",function(){paused=false;});
+  sect.addEventListener("keydown",function(e){
+    if(e.key==="ArrowLeft"){e.preventDefault();step(-1);}
+    else if(e.key==="ArrowRight"){e.preventDefault();step(1);}
+  });
+
+  bPrev.addEventListener("click",function(){step(-1);});
+  bNext.addEventListener("click",function(){step(1);});
+  var PAUSE='<path d="M9 5v14M15 5v14"/>', PLAY='<path d="M7 4.5 19 12 7 19.5Z"/>';
+  function setTog(){
+    icon.innerHTML=userPaused?PLAY:PAUSE;
+    bTog.setAttribute("aria-pressed",userPaused?"true":"false");
+    bTog.setAttribute("aria-label",userPaused?"Start the wheel":"Pause the wheel");
+  }
+  bTog.addEventListener("click",function(){userPaused=!userPaused;setTog();});
+
+  window.addEventListener("resize",function(){measure();render();});
+  measure();
+  if(reduced) userPaused=true;
+  setTog();
+  requestAnimationFrame(frame);
+})();
+</script>
+
+
+<script>
+/* ---- The Way We Think: swap summary for the full essay ---- */
+(function(){
+  var btn=document.getElementById("think-toggle"),
+      shortEl=document.getElementById("think-short"),
+      longEl=document.getElementById("think-long");
+  if(!btn||!shortEl||!longEl) return;
+  btn.addEventListener("click",function(){
+    var open=longEl.hidden;
+    longEl.hidden=!open; shortEl.hidden=open;
+    btn.setAttribute("aria-expanded",open?"true":"false");
+    btn.textContent=open?"Show the short version":"Read the full essay";
+    if(!open) document.getElementById("think").scrollIntoView({block:"start",behavior:"smooth"});
+  });
+})();
+</script>
+
 
 </body>
 </html>
