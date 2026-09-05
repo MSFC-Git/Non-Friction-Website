@@ -47,6 +47,8 @@
   --mono:'IBM Plex Mono',ui-monospace,monospace;
   --pad:clamp(1.25rem,5vw,4rem);
   --gap-section:clamp(5rem,11vw,9rem);
+  --rail:266px;
+  --topbar:62px;
 }
 
 *{box-sizing:border-box;margin:0;padding:0}
@@ -68,7 +70,7 @@ h1{font-size:clamp(2.5rem,6.4vw,4.6rem);font-weight:300}
 h2{font-size:clamp(1.9rem,4.2vw,3rem)}
 h3{font-size:1.2rem;font-weight:500;letter-spacing:-.01em;line-height:1.3}
 .eyebrow{
-  font-family:var(--mono);font-size:.72rem;font-weight:500;
+  font-family:var(--mono);font-size:.94rem;font-weight:500;
   letter-spacing:.18em;text-transform:uppercase;color:var(--slate);
   display:block;margin-bottom:1.4rem;
 }
@@ -119,58 +121,146 @@ section{padding-block:var(--gap-section)}
 .chev-cta{--loop:13s;--offset:-7s}
 
 /* ---------- nav ---------- */
+/* ---------- left rail navigation ---------- */
+body{padding-left:var(--rail)}
+
 .nav{
-  position:sticky;top:0;z-index:60;background:rgba(23,35,59,.97);
-  backdrop-filter:blur(10px);border-bottom:1px solid var(--line-dark);
+  position:fixed;inset:0 auto 0 0;width:var(--rail);z-index:60;
+  background:var(--navy);display:flex;flex-direction:column;
+  padding:2.3rem 0 1.7rem;
 }
-.nav-in{display:flex;align-items:center;justify-content:space-between;gap:2rem;padding-block:1.15rem}
-.brand{display:flex;align-items:center;gap:1.05rem;text-decoration:none;flex-shrink:0}
-.brand-lockup{display:flex;align-items:baseline;white-space:nowrap}
-.brand-rule{width:1px;height:38px;background:var(--amber);opacity:.75;flex-shrink:0}
-.brand-name{font-family:var(--display);font-size:1.85rem;color:var(--bone);font-weight:400;letter-spacing:-.015em;white-space:nowrap}
-.brand-sub{font-family:var(--mono);font-size:.7rem;letter-spacing:.22em;color:var(--slate-light);text-transform:uppercase;margin-left:.7rem;white-space:nowrap}
-.nav-links{display:flex;align-items:center;gap:1.5rem;flex-shrink:1;min-width:0}
+.nav::after{
+  content:"";position:absolute;top:0;right:0;bottom:0;width:1px;
+  background:linear-gradient(to bottom,rgba(224,160,60,0) 0%,rgba(224,160,60,.5) 18%,
+              rgba(224,160,60,.5) 82%,rgba(224,160,60,0) 100%);
+}
+
+/* brand lockup, stacked to match the vertical logo artwork */
+.brand{display:block;text-decoration:none;padding:0 1.9rem 1.9rem}
+.brand .chev-logo{display:block;margin-bottom:.9rem}
+.brand-name{
+  font-family:var(--display);font-size:1.7rem;color:var(--bone);
+  font-weight:400;letter-spacing:-.015em;display:block;line-height:1;
+}
+.brand-rule{display:block;height:1px;width:100%;background:var(--amber);opacity:.8;margin:.62rem 0 .45rem}
+.brand-sub{
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.24em;
+  color:var(--slate-light);text-transform:uppercase;display:block;text-align:right;
+}
+
+.nav-links{display:flex;flex-direction:column;flex:1;min-width:0;overflow-y:auto}
 .nav-links a{
-  font-size:.82rem;color:var(--slate-light);text-decoration:none;
-  white-space:nowrap;transition:color .18s;
+  position:relative;display:block;padding:.72rem 1.9rem;
+  font-size:.92rem;color:var(--slate-light);text-decoration:none;
+  transition:color .18s ease,background .18s ease;
 }
-.nav-links a:hover{color:var(--bone)}
+.nav-links a::before{
+  content:"";position:absolute;left:0;top:50%;transform:translateY(-50%);
+  width:3px;height:0;background:var(--amber);transition:height .22s ease;
+}
+.nav-links a:hover{color:var(--bone);background:var(--navy-soft)}
+.nav-links a.is-current{color:var(--bone)}
+.nav-links a.is-current::before{height:24px}
+.nav-links a:focus-visible{outline:2px solid var(--amber);outline-offset:-2px}
+
+/* Sections that exist in the plan but not yet on the page. Styled as
+   inert text so they read as a roadmap rather than a broken link. */
+.nav-soon{
+  display:block;padding:.72rem 1.9rem;font-size:.92rem;
+  color:rgba(148,163,184,.42);cursor:default;
+}
+.nav-soon::after{
+  content:"soon";margin-left:.55rem;font-family:var(--mono);
+  font-size:.55rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(224,160,60,.5);vertical-align:.15em;
+}
+@media(min-width:961px) and (max-height:820px){
+  .nav-links a,.nav-soon{padding-block:.52rem}
+  .brand{padding-bottom:1.3rem}
+}
+
+.nav-foot{padding:1.4rem 1.9rem 0}
 .nav-cta{
-  background:var(--magenta);color:#fff !important;padding:.48rem .95rem;
-  border-radius:3px;font-weight:500;font-size:.78rem;
-  transition:background .18s,transform .18s;
+  display:block;text-align:center;background:var(--magenta);color:#fff !important;
+  padding:.72rem 1rem;border-radius:3px;font-weight:500;font-size:.85rem;
+  text-decoration:none;transition:background .18s,transform .18s;
 }
 .nav-cta:hover{background:#c01f66;transform:translateY(-1px)}
-@media(max-width:1040px){.nav-links a:not(.nav-cta){display:none}}
-@media(max-width:820px){
-  .brand-sub{display:none}
-  .brand-name{font-size:1.55rem}
-  .brand-rule{height:32px}
+.nav-meta{
+  margin-top:1.15rem;font-family:var(--mono);font-size:.63rem;
+  letter-spacing:.08em;color:rgba(148,163,184,.58);line-height:1.95;
+}
+
+/* ---------- mobile bar and drawer ---------- */
+.topbar{display:none}
+.topbar-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.topbar-brand .brand-name{font-size:1.22rem}
+.rail-toggle{
+  appearance:none;background:transparent;border:0;cursor:pointer;
+  padding:.55rem;display:flex;flex-direction:column;gap:5px;
+}
+.rail-toggle span{display:block;width:22px;height:2px;background:var(--bone);
+  transition:transform .22s ease,opacity .22s ease}
+.rail-toggle:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+.rail-toggle[aria-expanded="true"] span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.rail-toggle[aria-expanded="true"] span:nth-child(2){opacity:0}
+.rail-toggle[aria-expanded="true"] span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.rail-scrim{display:none}
+
+@media(max-width:960px){
+  body{padding-left:0;padding-top:var(--topbar)}
+  .hero{min-height:calc(100svh - var(--topbar))}
+  .topbar{
+    display:flex;align-items:center;justify-content:space-between;
+    position:fixed;top:0;left:0;right:0;height:var(--topbar);z-index:70;
+    background:rgba(23,35,59,.97);backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line-dark);padding-inline:1.1rem;
+  }
+  .nav{
+    width:min(310px,84vw);padding-top:calc(var(--topbar) + 1.5rem);
+    transform:translateX(-100%);transition:transform .26s ease;
+    box-shadow:0 0 60px rgba(0,0,0,.5);
+  }
+  .nav.is-open{transform:translateX(0)}
+  .rail-scrim{
+    display:block;position:fixed;inset:0;z-index:55;background:rgba(14,23,41,.55);
+    opacity:0;pointer-events:none;transition:opacity .26s ease;border:0;
+  }
+  .rail-scrim.is-open{opacity:1;pointer-events:auto}
 }
 @media(max-width:420px){
-  .brand-name{font-size:1.3rem}
-  .brand{gap:.7rem}
-  .brand-rule{height:26px}
+  .topbar-brand .brand-name{font-size:1.06rem}
+}
+@media(prefers-reduced-motion:reduce){
+  .nav{transition:none}
 }
 
 /* ---------- hero ---------- */
 .hero{
   background:var(--navy);color:var(--bone);
-  padding-block:clamp(5rem,13vw,10rem) clamp(5rem,12vw,9rem);
   position:relative;overflow:hidden;
+  /* Fit the whole hero inside the opening screen. Type scales against
+     viewport height as well as width so it survives short laptop screens. */
+  min-height:100vh;min-height:100svh;
+  display:flex;align-items:center;
+  padding-block:clamp(1.4rem,4vh,3.4rem);
 }
 .hero::after{
   content:"";position:absolute;inset:auto -10% -55% 40%;height:70%;
   background:radial-gradient(ellipse at center,rgba(224,160,60,.09),transparent 68%);
   pointer-events:none;
 }
-.hero-in{position:relative;z-index:2;max-width:920px}
-.hero h1{color:var(--bone);margin-bottom:2rem}
+.hero-in{position:relative;z-index:2;max-width:920px;width:100%}
+.hero h1{color:var(--bone);
+  font-size:clamp(1.55rem,min(4.6vw,5vh),3.4rem);
+  margin-bottom:clamp(.85rem,2.2vh,1.8rem)}
+.hero .eyebrow{margin-bottom:clamp(.65rem,1.7vh,1.3rem)}
 .hero h1 em{font-style:normal;color:var(--amber)}
 .hero .lede{color:var(--slate-light);font-size:clamp(1.08rem,2vw,1.35rem)}
 .hero .lede strong{color:var(--bone);font-weight:400}
-.hero-chev{margin-bottom:2.6rem}
-.hero-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:2.8rem}
+.hero-chev{margin-bottom:clamp(.9rem,2.5vh,2.2rem)}
+.hero-actions{display:flex;flex-wrap:wrap;gap:1rem;margin-top:clamp(1rem,2.7vh,2.4rem)}
+.hero .btn{padding:clamp(.6rem,1.6vh,.9rem) 1.6rem}
 .btn{
   display:inline-block;padding:.95rem 1.9rem;border-radius:3px;
   font-family:var(--body);font-size:.95rem;font-weight:500;
@@ -187,15 +277,16 @@ section{padding-block:var(--gap-section)}
 /* four words strip */
 .hero-statement{
   font-family:var(--display);font-weight:300;
-  font-size:clamp(1.32rem,2.7vw,1.95rem);line-height:1.45;
+  font-size:clamp(.95rem,min(2.15vw,2.4vh),1.6rem);line-height:1.42;
   letter-spacing:-.012em;color:var(--slate-light);max-width:34ch;
 }
 .hero-statement b{font-weight:400;color:var(--magenta-light)}
 .hero-statement i{font-style:normal;color:var(--bone)}
 .hero-line{
   font-family:var(--display);font-weight:300;
-  font-size:clamp(1.3rem,2.6vw,1.85rem);line-height:1.3;letter-spacing:-.015em;
-  color:var(--bone);margin-top:2.4rem;padding-top:1.8rem;max-width:24ch;
+  font-size:clamp(1rem,min(2.2vw,2.5vh),1.6rem);line-height:1.28;letter-spacing:-.015em;
+  color:var(--bone);margin-top:clamp(.9rem,2.3vh,2rem);
+  padding-top:clamp(.75rem,1.8vh,1.6rem);max-width:24ch;
   border-top:2px solid var(--amber);
 }
 /* hero byline carousel — white reel panel */
@@ -464,6 +555,94 @@ section{padding-block:var(--gap-section)}
 .cta-contact{margin-top:2.6rem;font-family:var(--mono);font-size:.85rem;color:var(--slate-light)}
 .cta-contact a{color:var(--amber);text-decoration:none}
 
+/* ---------- what we believe ---------- */
+.beliefs{margin-top:3.2rem}
+.belief{border-top:1px solid var(--line)}
+.belief:last-child{border-bottom:1px solid var(--line)}
+.belief>summary{
+  display:flex;gap:1.15rem;align-items:flex-start;cursor:pointer;
+  padding:1.5rem .25rem;list-style:none;
+}
+.belief>summary::-webkit-details-marker{display:none}
+.belief>summary::marker{content:""}
+.belief>summary:focus-visible{outline:2px solid var(--amber);outline-offset:2px;border-radius:3px}
+.belief-num{
+  font-family:var(--mono);font-size:.94rem;color:var(--amber);
+  flex:0 0 2.1rem;padding-top:.42rem;
+}
+.belief-line{
+  flex:1;font-family:var(--display);font-weight:300;
+  font-size:clamp(1.12rem,2.05vw,1.48rem);line-height:1.33;
+  letter-spacing:-.01em;color:var(--navy);text-wrap:pretty;
+}
+.belief-more{
+  flex:0 0 auto;margin-top:.5rem;display:inline-flex;align-items:center;gap:.45rem;
+  font-family:var(--mono);font-size:.74rem;font-weight:500;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--amber);white-space:nowrap;
+}
+.belief-more::before{content:"More"}
+.belief[open] .belief-more::before{content:"Less"}
+.belief-chev{transition:transform .25s ease}
+.belief[open] .belief-chev{transform:rotate(90deg)}
+.belief>summary:hover .belief-line{color:#A5701A}
+.belief-body{padding:0 .25rem 1.9rem 2.85rem;max-width:68ch}
+.belief-body p{color:var(--slate)}
+.belief-body p+p{margin-top:.9rem}
+
+/* ---------- who we are ---------- */
+.who{background:var(--navy);color:var(--slate-light)}
+.who h2{color:var(--bone)}
+.who h2 em{font-style:normal;color:var(--amber)}
+.who .eyebrow{color:var(--amber)}
+.who .lede{color:var(--slate-light)}
+.who .lede strong{color:var(--bone);font-weight:400}
+.who-in{
+  display:grid;grid-template-columns:1.4fr .8fr;
+  gap:clamp(2rem,5vw,4.5rem);align-items:start;margin-top:3rem;
+}
+.who-in p+p{margin-top:1.1rem}
+.who-facts{margin:0;border-top:1px solid var(--line-dark)}
+.who-facts div{padding:1rem 0;border-bottom:1px solid var(--line-dark)}
+.who-facts dt{
+  font-family:var(--mono);font-size:.64rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--slate);
+}
+.who-facts dd{margin:.35rem 0 0;color:var(--bone);font-size:.96rem}
+@media(max-width:820px){.who-in{grid-template-columns:1fr}}
+
+/* ---------- pricing ---------- */
+.price-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(268px,1fr));gap:1.5rem;margin-top:3.4rem}
+.price{
+  background:#fff;border:1px solid var(--line);border-radius:3px;
+  padding:2rem 1.75rem;display:flex;flex-direction:column;
+}
+.price-name{
+  font-family:var(--mono);font-size:.68rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--slate);margin-bottom:1.2rem;
+}
+.price-fig{font-family:var(--display);font-weight:300;font-size:2.05rem;letter-spacing:-.025em;line-height:1;color:var(--navy)}
+.price-unit{font-size:.82rem;color:var(--slate);margin-top:.45rem}
+.price>p{margin-top:1.15rem;color:var(--slate);font-size:.95rem}
+.price ul{margin:1.2rem 0 0;padding-left:1.05rem;color:var(--slate);font-size:.92rem}
+.price li{margin-bottom:.45rem}
+.price li::marker{color:var(--amber)}
+
+/* Draft flag. Remove this rule and its markup once real figures are in. */
+.draft{
+  margin-top:2.6rem;border-left:3px solid var(--magenta);
+  background:rgba(219,39,119,.05);padding:1rem 1.2rem;
+  font-size:.9rem;color:var(--slate);max-width:62ch;
+}
+.draft b{color:var(--magenta);font-weight:600}
+
+/* ---------- parked content divider ---------- */
+.parked-rule{
+  background:var(--navy-deep);color:var(--slate-light);
+  padding-block:2.6rem;border-top:3px solid var(--magenta);
+}
+.parked-rule p{font-family:var(--mono);font-size:.78rem;letter-spacing:.1em;line-height:1.9;max-width:70ch}
+.parked-rule b{color:var(--amber);display:block;letter-spacing:.2em;text-transform:uppercase;font-size:.7rem;margin-bottom:.6rem}
+
 /* ---------- footer ---------- */
 .foot{background:var(--navy-deep);color:var(--slate-light);padding-block:2.4rem;border-top:1px solid var(--line-dark)}
 .foot-in{display:flex;flex-wrap:wrap;gap:1.5rem;align-items:center;justify-content:space-between;font-size:.82rem}
@@ -484,10 +663,7 @@ section{padding-block:var(--gap-section)}
 .fw::before,.fw::after{content:"";position:absolute;top:0;bottom:0;width:15%;z-index:4;pointer-events:none}
 .fw::before{left:0;background:linear-gradient(90deg,var(--navy) 14%,rgba(23,35,59,0))}
 .fw::after{right:0;background:linear-gradient(270deg,var(--navy) 14%,rgba(23,35,59,0))}
-.fw-eyebrow{position:relative;z-index:5;text-align:center;margin:0 0 2.2rem;
-    font-family:var(--body);font-size:.68rem;letter-spacing:.26em;text-transform:uppercase;
-    color:var(--amber);font-weight:500}
-.fw-stage{position:relative;z-index:1;height:320px;perspective:1500px;perspective-origin:50% 46%}
+.fw-stage{position:relative;z-index:1;height:320px;margin-top:1.4rem;perspective:1500px;perspective-origin:50% 46%}
 .fw-stage:focus-visible{outline:2px solid var(--amber);outline-offset:6px;border-radius:4px}
 .fw-wheel{position:absolute;inset:0;transform-style:preserve-3d;will-change:transform;
     touch-action:pan-y;cursor:grab;user-select:none;-webkit-user-select:none}
@@ -506,15 +682,15 @@ section{padding-block:var(--gap-section)}
 .fw-q.s{font-size:1.2rem;line-height:1.36}
 .fw-q.xs{font-size:1.02rem;line-height:1.44}
 .fw-chev{margin-top:16px;height:9px;flex:0 0 auto}
-.fw-controls{position:relative;z-index:5;display:flex;justify-content:center;gap:10px;margin-top:1.8rem}
+.fw-controls{position:relative;z-index:5;display:flex;justify-content:center;gap:13px;margin-top:1.8rem}
 .fw-btn{appearance:none;background:transparent;border:1px solid var(--line-dark);color:var(--bone);
-    width:38px;height:38px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
+    width:49px;height:49px;border-radius:50%;display:grid;place-items:center;cursor:pointer;
     transition:border-color .2s ease,color .2s ease}
 .fw-btn:hover{border-color:var(--amber);color:var(--amber)}
 .fw-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
-.fw-btn svg{width:14px;height:14px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.fw-btn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .fw-hint{position:relative;z-index:5;text-align:center;margin:1.1rem 0 0;font-family:var(--body);
-    font-size:.66rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(148,163,184,.7)}
+    font-size:.86rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(148,163,184,.7)}
 .fw-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
 
 /* centred statements */
@@ -553,7 +729,11 @@ section{padding-block:var(--gap-section)}
 
 
 /* ============ THE WAY WE THINK (essay) ============ */
+/* every anchor target clears the 87px sticky nav */
+#top,#believe,#who,#services,#pricing,#contact{scroll-margin-top:1rem}
+@media(max-width:960px){[id]{scroll-margin-top:calc(var(--topbar) + 1rem)}}
 .think{background:var(--bone-warm)}
+.think-body{overflow-anchor:none}
 .think-body{max-width:34rem;margin-top:2.4rem}
 .think-body p{font-family:var(--body);font-size:1.02rem;line-height:1.75;color:var(--navy);margin:0 0 1.15rem}
 .think-body p.lead{font-family:var(--display);font-weight:300;font-size:clamp(1.2rem,2.2vw,1.5rem);
@@ -585,28 +765,55 @@ section{padding-block:var(--gap-section)}
 </head>
 <body>
 
-<nav class="nav">
-  <div class="wrap nav-in">
-    <a class="brand" href="#top">
-      <svg class="chev-mark chev-logo" width="98" height="35" viewBox="0 0 72 26" aria-hidden="true">
-        <path d="M3 5.5 L10 13 L3 20.5" stroke="#F7F6F2"/>
-        <path d="M14 5.5 L21 13 L14 20.5" stroke="#E4E0D5"/>
-        <path d="M25 5.5 L32 13 L25 20.5" stroke="#D6C9AE"/>
-        <path d="M36 5.5 L43 13 L36 20.5" stroke="#EFC98A"/>
-        <path d="M47 5.5 L54 13 L47 20.5" stroke="#E8B45E"/>
-        <path d="M58 5.5 L65 13 L58 20.5" stroke="#E0A03C"/>
-      </svg>
-      <span class="brand-rule"></span>
-      <span class="brand-lockup"><span class="brand-name">Non-Friction</span><span class="brand-sub">Consulting</span></span>
-    </a>
-    <div class="nav-links">
-      <a href="#think">The Way We Think</a>
-      <a href="#friction">Friction</a>
-      <a href="#chain">Where it hides</a>
-      <a href="#whynow">Why now</a>
-      <a href="#services">Services</a>
-      <a class="nav-cta" href="#contact">Start a conversation</a>
-    </div>
+<!-- ============ MOBILE BAR (hidden above 960px) ============ -->
+<div class="topbar">
+  <a class="topbar-brand" href="#top">
+    <svg class="chev-mark" width="62" height="22" viewBox="0 0 72 26" aria-hidden="true">
+      <path d="M3 5.5 L10 13 L3 20.5" stroke="#F7F6F2"/>
+      <path d="M14 5.5 L21 13 L14 20.5" stroke="#E4E0D5"/>
+      <path d="M25 5.5 L32 13 L25 20.5" stroke="#D6C9AE"/>
+      <path d="M36 5.5 L43 13 L36 20.5" stroke="#EFC98A"/>
+      <path d="M47 5.5 L54 13 L47 20.5" stroke="#E8B45E"/>
+      <path d="M58 5.5 L65 13 L58 20.5" stroke="#E0A03C"/>
+    </svg>
+    <span class="brand-name">Non-Friction</span>
+  </a>
+  <button class="rail-toggle" id="rail-toggle" aria-label="Open menu" aria-expanded="false" aria-controls="rail-nav">
+    <span></span><span></span><span></span>
+  </button>
+</div>
+<button class="rail-scrim" id="rail-scrim" tabindex="-1" aria-hidden="true"></button>
+
+<!-- ============ LEFT RAIL ============ -->
+<nav class="nav" id="rail-nav" aria-label="Main">
+  <a class="brand" href="#top">
+    <svg class="chev-mark chev-logo" width="128" height="46" viewBox="0 0 72 26" aria-hidden="true">
+      <path d="M3 5.5 L10 13 L3 20.5" stroke="#F7F6F2"/>
+      <path d="M14 5.5 L21 13 L14 20.5" stroke="#E4E0D5"/>
+      <path d="M25 5.5 L32 13 L25 20.5" stroke="#D6C9AE"/>
+      <path d="M36 5.5 L43 13 L36 20.5" stroke="#EFC98A"/>
+      <path d="M47 5.5 L54 13 L47 20.5" stroke="#E8B45E"/>
+      <path d="M58 5.5 L65 13 L58 20.5" stroke="#E0A03C"/>
+    </svg>
+    <span class="brand-name">Non-Friction</span>
+    <span class="brand-rule"></span>
+    <span class="brand-sub">Consulting</span>
+  </a>
+
+  <div class="nav-links">
+    <a href="#believe">What we believe</a>
+    <a href="#who">Who we are</a>
+    <span class="nav-soon">Who we help</span>
+    <a href="#services">Services offered</a>
+    <span class="nav-soon">Examples and case studies</span>
+    <span class="nav-soon">Resources</span>
+    <a href="#pricing">Pricing</a>
+    <a href="#contact">Contact details</a>
+  </div>
+
+  <div class="nav-foot">
+    <a class="nav-cta" href="#contact">Start a conversation</a>
+    <p class="nav-meta">Auckland, New&nbsp;Zealand</p>
   </div>
 </nav>
 
@@ -631,16 +838,15 @@ section{padding-block:var(--gap-section)}
     <p class="hero-line">We find the friction in your business — and remove it.</p>
 
     <div class="hero-actions">
-      <a class="btn btn-primary" href="#assess">Find your friction</a>
-      <a class="btn btn-ghost" href="#whynow">Why it's different now</a>
+      <a class="btn btn-primary" href="#believe">Find your friction</a>
+      <a class="btn btn-ghost" href="#believe">Why it's different now</a>
     </div>
 
   </div>
 </header>
 
 <!-- ============ STATEMENT WHEEL ============ -->
-<section class="fw" aria-labelledby="fw-label">
-  <p class="fw-eyebrow" id="fw-label">Gradually, then suddenly</p>
+<section class="fw" aria-label="Statements about friction and enterprise value">
   <div class="fw-stage" id="fw-stage" tabindex="0" role="group" aria-describedby="fw-help" aria-label="Statement wheel">
     <div class="fw-wheel" id="fw-wheel" aria-hidden="true"></div>
     <span class="fw-sr" id="fw-help">Use the left and right arrow keys to step through the statements.</span>
@@ -655,8 +861,276 @@ section{padding-block:var(--gap-section)}
 </section>
 
 
+
+<!-- ============ 3. WHAT WE BELIEVE ============ -->
+<section id="believe">
+  <div class="wrap">
+    <span class="eyebrow">What we believe</span>
+    <h2>Six things we've come to believe<br>about how a business actually gets better.</h2>
+    <p class="lede" style="margin-top:1.3rem">In the order they matter. Open any one of them for the longer answer.</p>
+
+    <div class="beliefs">
+
+      <details class="belief">
+        <summary>
+          <span class="belief-num">01</span>
+          <span class="belief-line">The most expensive thing in your business never appears on a supplier's invoice.</span>
+          <span class="belief-more" aria-hidden="true"><svg class="belief-chev" width="30" height="11" viewBox="0 0 30 11" fill="none"><g stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.2 L5.6 5.5 L2 8.8"/><path d="M11 2.2 L14.6 5.5 L11 8.8"/><path d="M20 2.2 L23.6 5.5 L20 8.8"/></g></svg></span>
+        </summary>
+        <div class="belief-body">
+          <p>Manual entry. Siloed information. Incomplete systems. Double entry. Nobody adds up the cost of all the inefficiencies in your business, because nobody ever sends you a bill for them. But they are there, they compound, and they're paid for out of your margin, your cash and your weekends. And that's only the part you can see.</p>
+        </div>
+      </details>
+
+      <details class="belief">
+        <summary>
+          <span class="belief-num">02</span>
+          <span class="belief-line">The biggest loss isn't to this year's profit. It's to what your business is worth on the day you sell it.</span>
+          <span class="belief-more" aria-hidden="true"><svg class="belief-chev" width="30" height="11" viewBox="0 0 30 11" fill="none"><g stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.2 L5.6 5.5 L2 8.8"/><path d="M11 2.2 L14.6 5.5 L11 8.8"/><path d="M20 2.2 L23.6 5.5 L20 8.8"/></g></svg></span>
+        </summary>
+        <div class="belief-body">
+          <p>Margin is the visible cost. The bigger one is what's left when you want out. Given the choice of selling your business for $100,000 or $1,000,000, which would you choose? A large part of that difference comes down to how much friction you left in the business.</p>
+          <p>When the process is documented, the data is trustworthy and the reporting runs itself, a buyer is purchasing an asset that keeps running after you walk out the door. When none of that is true, they're purchasing a job — and they'll price it that way, if they bid at all.</p>
+        </div>
+      </details>
+
+      <details class="belief">
+        <summary>
+          <span class="belief-num">03</span>
+          <span class="belief-line">The friction in your business hasn't changed. The cost of removing it just collapsed.</span>
+          <span class="belief-more" aria-hidden="true"><svg class="belief-chev" width="30" height="11" viewBox="0 0 30 11" fill="none"><g stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.2 L5.6 5.5 L2 8.8"/><path d="M11 2.2 L14.6 5.5 L11 8.8"/><path d="M20 2.2 L23.6 5.5 L20 8.8"/></g></svg></span>
+        </summary>
+        <div class="belief-body">
+          <p>None of this is new. The reason it never got fixed is that fixing it properly meant custom work, and custom work meant an expert who understood both your business and the technology. Slow to find, slower to brief, and expensive either way.</p>
+          <p>What's changed is that the same work can now be specified in plain English by the person who actually understands the business — you — and built in hours rather than months. Nothing about the friction changed. The price of removing it did.</p>
+        </div>
+      </details>
+
+      <details class="belief">
+        <summary>
+          <span class="belief-num">04</span>
+          <span class="belief-line">It's not about what you spend. It's about what you get back, and when.</span>
+          <span class="belief-more" aria-hidden="true"><svg class="belief-chev" width="30" height="11" viewBox="0 0 30 11" fill="none"><g stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.2 L5.6 5.5 L2 8.8"/><path d="M11 2.2 L14.6 5.5 L11 8.8"/><path d="M20 2.2 L23.6 5.5 L20 8.8"/></g></svg></span>
+        </summary>
+        <div class="belief-body">
+          <p>Which is what makes the sums work now, where they didn't before. If a change can't show a return, it isn't an investment — it's just another cost. Every improvement should pay for itself, and you should be able to see that clearly before you commit.</p>
+        </div>
+      </details>
+
+      <details class="belief">
+        <summary>
+          <span class="belief-num">05</span>
+          <span class="belief-line">Technology shouldn't replace people. It should replace the hours competent people lose to work they should never have been doing.</span>
+          <span class="belief-more" aria-hidden="true"><svg class="belief-chev" width="30" height="11" viewBox="0 0 30 11" fill="none"><g stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.2 L5.6 5.5 L2 8.8"/><path d="M11 2.2 L14.6 5.5 L11 8.8"/><path d="M20 2.2 L23.6 5.5 L20 8.8"/></g></svg></span>
+        </summary>
+        <div class="belief-body">
+          <p>Your project manager didn't learn the trade so they could type the same job details into two systems. Your administrator isn't there to chase a timesheet for the third time. Tasks like these have to happen, but not one of them is where the person's expertise lives.</p>
+          <p>Take the friction away, and nothing of value leaves the business. The same people simply do more of the work you actually hired them for.</p>
+        </div>
+      </details>
+
+      <details class="belief">
+        <summary>
+          <span class="belief-num">06</span>
+          <span class="belief-line">Small improvements that hold will beat a heroic overhaul that decays. Every single time.</span>
+          <span class="belief-more" aria-hidden="true"><svg class="belief-chev" width="30" height="11" viewBox="0 0 30 11" fill="none"><g stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="M2 2.2 L5.6 5.5 L2 8.8"/><path d="M11 2.2 L14.6 5.5 L11 8.8"/><path d="M20 2.2 L23.6 5.5 L20 8.8"/></g></svg></span>
+        </summary>
+        <div class="belief-body">
+          <p><em>Kaizen</em> is the Japanese manufacturing discipline of continuous improvement — small, relentless and permanent, rather than occasional and heroic. A one-off overhaul decays the moment the business changes, and businesses change constantly.</p>
+          <p>So removing friction works best as a standing discipline rather than a project. Where is your biggest friction occurring? Fix it. Where's the next one? Rinse and repeat.</p>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ 4. WHO WE ARE ============ -->
+<!-- PLACEHOLDERS: [Name], [role], [start year], [background]. Replace before launch. -->
+<section class="who" id="who">
+  <div class="wrap">
+    <span class="eyebrow">Who we are</span>
+    <h2>Forty years of running businesses.<br><em>Not forty years of advising them.</em></h2>
+
+    <div class="who-in">
+      <div>
+        <p class="lede">Non-Friction Consulting is <strong>[Name]</strong>. One consultant, working directly with the owner — no account manager, no junior doing the actual work, no slide deck.</p>
+        <p>I have been self-employed for more than forty years. That matters here for one reason: I have made most of these mistakes myself. I have re-keyed the same job into two systems. I have found out a job lost money three months after it finished. I have bought software that solved a problem I didn't have.</p>
+        <p>[Two or three sentences on your background — the industries you came from, what you were doing before this, and why you ended up specialising in operational friction. This is the part a prospect reads to decide whether you understand their world.]</p>
+        <p>The work is deliberately unglamorous. Walk the path a job takes through your business, find where it snags, cost the snag, remove it, and check next month that it stayed removed. Then do the next one.</p>
+      </div>
+
+      <dl class="who-facts">
+        <div>
+          <dt>Based in</dt>
+          <dd>Auckland, New Zealand</dd>
+        </div>
+        <div>
+          <dt>Working with</dt>
+          <dd>Small and medium businesses across New Zealand and Australia</dd>
+        </div>
+        <div>
+          <dt>Mostly</dt>
+          <dd>Trades, construction and professional services</dd>
+        </div>
+        <div>
+          <dt>Self-employed since</dt>
+          <dd>[19XX]</dd>
+        </div>
+        <div>
+          <dt>Consulting since</dt>
+          <dd>[20XX]</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="draft">
+      <b>Draft note — remove before launch.</b> This section needs your name, the two bracketed years, and the background paragraph. A photograph would do more for this section than any amount of copy; consider one to the right of the text where the fact list currently sits.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. SERVICES ============ -->
+<section id="services" style="background:var(--bone-warm)">
+  <div class="wrap">
+    <span class="eyebrow">Services</span>
+    <h2>Friction doesn't live in one place.<br>Neither do we.</h2>
+    <p class="lede" style="margin-top:1.3rem">Six places we look, in the order they usually matter. The tools change. The questions don't.</p>
+
+    <div class="svc-grid">
+      <div class="svc">
+        <span class="svc-q">Process</span>
+        <h3>How work actually gets done.</h3>
+        <p>Not how it's supposed to be done. We map the real path a job takes through your business, including the parts that only exist in someone's head.</p>
+      </div>
+      <div class="svc">
+        <span class="svc-q">Systems</span>
+        <h3>Whether your software supports those processes.</h3>
+        <p>Most businesses use a fraction of what they already pay for, configured for someone else's way of working. There's usually more in the box than you think.</p>
+      </div>
+      <div class="svc">
+        <span class="svc-q">Integration</span>
+        <h3>Whether information flows between systems.</h3>
+        <p>Information should be captured once and turn up wherever it's needed. Every re-entry is a delay, a cost and a chance to get it wrong.</p>
+      </div>
+      <div class="svc">
+        <span class="svc-q">Automation</span>
+        <h3>Whether technology can eliminate repetitive work.</h3>
+        <p>If a person is doing something predictable, rule-based and often, it's a candidate. The test isn't whether it can be automated — it's whether removing it frees someone for work that matters.</p>
+      </div>
+      <div class="svc">
+        <span class="svc-q">Artificial intelligence</span>
+        <h3>Whether emerging technology can remove another layer of friction.</h3>
+        <p>AI tools can now read, summarise and act on your business information directly and securely. That removes friction which was untouchable two years ago. Used carelessly, it adds some — so we're deliberate about where it goes.</p>
+      </div>
+      <div class="svc">
+        <span class="svc-q">Continuous improvement</span>
+        <h3>Whether the business gets better over time.</h3>
+        <p>A one-off clean-up decays. What lasts is the habit of looking — a regular review that catches friction while it's still small and cheap to remove.</p>
+      </div>
+    </div>
+
+    <p class="svc-close">Today that often means WorkflowMax. In five years it may not. <b>The name describes the outcome, not the software.</b></p>
+  </div>
+</section>
+
+
+<!-- ============ 6. PRICING ============ -->
+<!-- PLACEHOLDERS: every $[X] and [N] below. Replace before launch. -->
+<section id="pricing">
+  <div class="wrap">
+    <span class="eyebrow">Pricing</span>
+    <h2>You should know the number<br>before you commit to the work.</h2>
+    <p class="lede" style="margin-top:1.3rem">Three ways to start, depending on how much you already know about where your friction is. All figures exclude GST.</p>
+
+    <div class="price-grid">
+
+      <div class="price">
+        <p class="price-name">Find the friction</p>
+        <p class="price-fig">$[X]</p>
+        <p class="price-unit">Fixed fee</p>
+        <p>A structured walk through the path a job takes, from enquiry to payment. You get a written list of where the friction is, what each one is costing, and what removing it would cost.</p>
+        <ul>
+          <li>[N] hours on site or online</li>
+          <li>Written findings, ranked by cost</li>
+          <li>Indicative price against each item</li>
+          <li>Yours to act on, with or without us</li>
+        </ul>
+      </div>
+
+      <div class="price">
+        <p class="price-name">Remove one thing</p>
+        <p class="price-fig">from $[X]</p>
+        <p class="price-unit">Per piece of work, quoted up front</p>
+        <p>One friction point, scoped and fixed. The integration, the report, the automation. Quoted as a fixed price with the expected payback stated before you agree to it.</p>
+        <ul>
+          <li>Fixed price, agreed in writing</li>
+          <li>Expected payback period stated up front</li>
+          <li>Verified a month later that it held</li>
+        </ul>
+      </div>
+
+      <div class="price">
+        <p class="price-name">Keep it improving</p>
+        <p class="price-fig">$[X]</p>
+        <p class="price-unit">Per month</p>
+        <p>The standing discipline. A regular review that catches friction while it's still small, plus an agreed amount of build time each month to remove what the review finds.</p>
+        <ul>
+          <li>[N] hours per month</li>
+          <li>Monthly review of what changed</li>
+          <li>No fixed term — cancel with [N] days' notice</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <div class="draft">
+      <b>Draft note — remove before launch.</b> Every figure on this page is a placeholder. The three shapes are a proposal, not a decision: audit, fixed-scope build, and retainer is the conventional consulting ladder, and you may want something different. Decide the shapes first, then the numbers.
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. CONTACT ============ -->
+<section class="cta" id="contact">
+  <div class="wrap narrow">
+    <svg class="chev-mark chev-anim chev-cta cta-chev" width="126" height="30" viewBox="0 0 126 30" aria-hidden="true">
+      <path d="M4 7 L12 15 L4 23" stroke="#F7F6F2" stroke-width="4.6"/>
+      <path d="M24 7 L32 15 L24 23" stroke="#E4E0D5" stroke-width="4.6"/>
+      <path d="M44 7 L52 15 L44 23" stroke="#D6C9AE" stroke-width="4.6"/>
+      <path d="M64 7 L72 15 L64 23" stroke="#EFC98A" stroke-width="4.6"/>
+      <path d="M84 7 L92 15 L84 23" stroke="#E8B45E" stroke-width="4.6"/>
+      <path d="M104 7 L112 15 L104 23" stroke="#E0A03C" stroke-width="4.6"/>
+    </svg>
+
+    <h2>Start with a conversation, <em>not a proposal.</em></h2>
+    <p class="lede">Tell us where the work gets stuck. If we can help, we'll say how. If you don't need us, we'll say that too — and you'll still leave the call knowing something you didn't.</p>
+    <a class="btn btn-primary" href="mailto:[email@nonfriction.co.nz]">Get in touch</a>
+    <p class="cta-contact">
+      <a href="mailto:[email@nonfriction.co.nz]">[email@nonfriction.co.nz]</a> &nbsp;·&nbsp;
+      <a href="tel:+64000000000">+64 [00 000 0000]</a> &nbsp;·&nbsp; Auckland, New Zealand
+    </p>
+  </div>
+</section>
+
+
+<!-- ============================================================
+     PARKED CONTENT — NOT PART OF THE SEVEN-SECTION STRUCTURE
+     Held here for review. Ideas may be pulled up into sections
+     3-7 or discarded. Delete this divider and everything below
+     it, down to the footer, when the review is finished.
+     ============================================================ -->
+<section class="parked-rule">
+  <div class="wrap">
+    <p>
+      <b>Parked for review</b>
+      Everything below this line is earlier material, kept so ideas can be pulled forward into the sections above. It is not part of the intended page structure and should be removed before launch.
+    </p>
+  </div>
+</section>
+
 <!-- ============ THE WAY WE THINK ============ -->
-<section class="think" id="think">
+<section class="think" id="parked-think">
   <div class="wrap">
     <span class="eyebrow">The Way We Think</span>
     <h2>The Non-Friction Business.</h2>
@@ -984,50 +1458,6 @@ section{padding-block:var(--gap-section)}
   </div>
 </section>
 
-<!-- ============ SERVICES ============ -->
-<section id="services" style="background:var(--bone-warm)">
-  <div class="wrap">
-    <span class="eyebrow">Services</span>
-    <h2>Friction doesn't live in one place.<br>Neither do we.</h2>
-    <p class="lede" style="margin-top:1.3rem">Six places we look, in the order they usually matter. The tools change. The questions don't.</p>
-
-    <div class="svc-grid">
-      <div class="svc">
-        <span class="svc-q">Process</span>
-        <h3>How work actually gets done.</h3>
-        <p>Not how it's supposed to be done. We map the real path a job takes through your business, including the parts that only exist in someone's head.</p>
-      </div>
-      <div class="svc">
-        <span class="svc-q">Systems</span>
-        <h3>Whether your software supports those processes.</h3>
-        <p>Most businesses use a fraction of what they already pay for, configured for someone else's way of working. There's usually more in the box than you think.</p>
-      </div>
-      <div class="svc">
-        <span class="svc-q">Integration</span>
-        <h3>Whether information flows between systems.</h3>
-        <p>Information should be captured once and turn up wherever it's needed. Every re-entry is a delay, a cost and a chance to get it wrong.</p>
-      </div>
-      <div class="svc">
-        <span class="svc-q">Automation</span>
-        <h3>Whether technology can eliminate repetitive work.</h3>
-        <p>If a person is doing something predictable, rule-based and often, it's a candidate. The test isn't whether it can be automated — it's whether removing it frees someone for work that matters.</p>
-      </div>
-      <div class="svc">
-        <span class="svc-q">Artificial intelligence</span>
-        <h3>Whether emerging technology can remove another layer of friction.</h3>
-        <p>AI tools can now read, summarise and act on your business information directly and securely. That removes friction which was untouchable two years ago. Used carelessly, it adds some — so we're deliberate about where it goes.</p>
-      </div>
-      <div class="svc">
-        <span class="svc-q">Continuous improvement</span>
-        <h3>Whether the business gets better over time.</h3>
-        <p>A one-off clean-up decays. What lasts is the habit of looking — a regular review that catches friction while it's still small and cheap to remove.</p>
-      </div>
-    </div>
-
-    <p class="svc-close">Today that often means WorkflowMax. In five years it may not. <b>The name describes the outcome, not the software.</b></p>
-  </div>
-</section>
-
 <!-- ============ SOFTWARE ============ -->
 <section class="software">
   <div class="wrap sw-in">
@@ -1084,28 +1514,6 @@ section{padding-block:var(--gap-section)}
   </div>
 </section>
 
-<!-- ============ CTA ============ -->
-<section class="cta" id="contact">
-  <div class="wrap narrow">
-    <svg class="chev-mark chev-anim chev-cta cta-chev" width="126" height="30" viewBox="0 0 126 30" aria-hidden="true">
-      <path d="M4 7 L12 15 L4 23" stroke="#F7F6F2" stroke-width="4.6"/>
-      <path d="M24 7 L32 15 L24 23" stroke="#E4E0D5" stroke-width="4.6"/>
-      <path d="M44 7 L52 15 L44 23" stroke="#D6C9AE" stroke-width="4.6"/>
-      <path d="M64 7 L72 15 L64 23" stroke="#EFC98A" stroke-width="4.6"/>
-      <path d="M84 7 L92 15 L84 23" stroke="#E8B45E" stroke-width="4.6"/>
-      <path d="M104 7 L112 15 L104 23" stroke="#E0A03C" stroke-width="4.6"/>
-    </svg>
-
-    <h2>Start with a conversation, <em>not a proposal.</em></h2>
-    <p class="lede">Tell us where the work gets stuck. If we can help, we'll say how. If you don't need us, we'll say that too — and you'll still leave the call knowing something you didn't.</p>
-    <a class="btn btn-primary" href="mailto:[email@nonfriction.co.nz]">Get in touch</a>
-    <p class="cta-contact">
-      <a href="mailto:[email@nonfriction.co.nz]">[email@nonfriction.co.nz]</a> &nbsp;·&nbsp;
-      <a href="tel:+64000000000">+64 [00 000 0000]</a> &nbsp;·&nbsp; Auckland, New Zealand
-    </p>
-  </div>
-</section>
-
 <footer class="foot">
   <div class="wrap foot-in">
     <div style="display:flex;align-items:center;gap:.8rem">
@@ -1120,9 +1528,10 @@ section{padding-block:var(--gap-section)}
       <span>Non-Friction Consulting</span>
     </div>
     <div class="foot-links">
-      <a href="#friction">Friction</a>
+      <a href="#believe">What we believe</a>
+      <a href="#who">Who we are</a>
       <a href="#services">Services</a>
-      <a href="#assess">Self-check</a>
+      <a href="#pricing">Pricing</a>
       <a href="#contact">Contact</a>
     </div>
     <div>© [start year]–2026 · Auckland, New Zealand</div>
@@ -1385,10 +1794,8 @@ boxes.forEach(function(b){ b.addEventListener('change', tally); });
   wheel.addEventListener("pointerup",end);
   wheel.addEventListener("pointercancel",end);
 
-  sect.addEventListener("pointerenter",function(){paused=true;});
-  sect.addEventListener("pointerleave",function(){paused=false;});
-  sect.addEventListener("focusin",function(){paused=true;});
-  sect.addEventListener("focusout",function(){paused=false;});
+  /* Hover and focus no longer pause the wheel - the pause button is the
+     only control that stops it. `paused` is retained so it can be reused. */
   sect.addEventListener("keydown",function(e){
     if(e.key==="ArrowLeft"){e.preventDefault();step(-1);}
     else if(e.key==="ArrowRight"){e.preventDefault();step(1);}
@@ -1425,8 +1832,68 @@ boxes.forEach(function(b){ b.addEventListener('change', tally); });
     longEl.hidden=!open; shortEl.hidden=open;
     btn.setAttribute("aria-expanded",open?"true":"false");
     btn.textContent=open?"Show the short version":"Read the full essay";
-    if(!open) document.getElementById("think").scrollIntoView({block:"start",behavior:"smooth"});
+    if(open){
+      /* The essay expanding above the fold makes the browser re-anchor the
+         scroll position, which lands you at the bottom of it. Wait for layout,
+         then jump to the section top explicitly. */
+      var sec=document.getElementById("parked-think");
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){
+          /* Offset only needs to clear the mobile top bar; the desktop rail
+             sits beside the content, not above it. */
+          var off=window.matchMedia("(max-width:960px)").matches?78:16;
+          var y=sec.getBoundingClientRect().top+window.pageYOffset-off;
+          window.scrollTo({top:y,behavior:"auto"});
+        });
+      });
+    }
   });
+})();
+/* ---- Left rail: mobile drawer + section tracking ---- */
+(function(){
+  var rail=document.getElementById("rail-nav"),
+      toggle=document.getElementById("rail-toggle"),
+      scrim=document.getElementById("rail-scrim");
+  if(!rail||!toggle||!scrim) return;
+
+  function setOpen(open){
+    rail.classList.toggle("is-open",open);
+    scrim.classList.toggle("is-open",open);
+    toggle.setAttribute("aria-expanded",open?"true":"false");
+    toggle.setAttribute("aria-label",open?"Close menu":"Open menu");
+    document.body.style.overflow=open?"hidden":"";
+  }
+
+  toggle.addEventListener("click",function(){
+    setOpen(toggle.getAttribute("aria-expanded")!=="true");
+  });
+  scrim.addEventListener("click",function(){setOpen(false);});
+  document.addEventListener("keydown",function(e){
+    if(e.key==="Escape") setOpen(false);
+  });
+  rail.addEventListener("click",function(e){
+    if(e.target.tagName==="A"&&window.matchMedia("(max-width:960px)").matches) setOpen(false);
+  });
+
+  /* Highlight the section currently in view. The rail can show position in
+     the page in a way a horizontal bar cannot, so it is worth wiring up. */
+  var links={}, targets=[];
+  Array.prototype.forEach.call(rail.querySelectorAll('.nav-links a[href^="#"]'),function(a){
+    var id=a.getAttribute("href").slice(1), el=document.getElementById(id);
+    if(el){ links[id]=a; targets.push(el); }
+  });
+  if(!("IntersectionObserver" in window)||!targets.length) return;
+
+  var seen={};
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ seen[en.target.id]=en.isIntersecting; });
+    var active=null;
+    targets.forEach(function(t){ if(seen[t.id]) active=active||t.id; });
+    Object.keys(links).forEach(function(id){
+      links[id].classList.toggle("is-current",id===active);
+    });
+  },{rootMargin:"-40% 0px -55% 0px"});
+  targets.forEach(function(t){ obs.observe(t); });
 })();
 </script>
 
